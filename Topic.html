@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+	<title>Publish-Subscribe API</title>
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="Topic.css">
+</head>
+<body>
+	<div align="center">
+	<h2> Advanced Topics in Programming Languages</h2>
+	to take part of this topic please subscribe <br />
+	<input id="userName" type="text" placeholder="Place enter your name here"/>
+	<button id="joinButton" class="btn btn-primary joinButton" onclick="joinTopic()">Subscribe</button> <button id="unsubscribeButton" class="btn btn-danger unsubscribeButton" onclick="unsubscribe()">unsubscribe</button>
+    </div>
+	<script type="text/javascript">
+		function joinTopic() { debugger;
+			var uuid = $('#userName').val();
+			window.location = 'Topic.html?uuid=' + uuid; 
+		}
+	</script>
+	
+	<hr/>
+
+	 <div> <h3>J2EE vs .Net: The choice depends on your needs</h3> <br />
+	       You'd have to be living in a vacuum not to be aware of the debate that rages between proponents of the two dominant development platform contenders: Java 2 Enterprise Edition and .Net. Many articles have been written declaring one or the other the winner based upon performance, scalability, features, portability, vendor independence, ease of use, lines of code, robust security, productivity tools and enterprise connectivity, just to name a few of the hot issues.
+           The tale of the tape is long and confusing, but does it really get at the heart of the issue?
+           You Say Potato, I Say ...
+           Much of the debate has sought to differentiate the two in order to convince customers that one is the clear and obvious choice. The most obvious conclusion seems to be that the architects are most skilled at conceptually copying and enhancing the best of one another's platforms. As a result, J2EE and the .Net Framework are far more similar than many people realize and will probably become even more so in the future.
+	</div>
+	<h3>Comments :</h3>
+	
+
+	<div id="topicHistory" class="table-bordered topicHistory"></div>
+	<input type="text" id="message" placeholder="Enter your message here" class="message"/>
+	<button id="sendButton" class="btn btn-primary sendButton">Post your message</button>
+	<script type="text/javascript">
+		(function() { 
+			var publish_key = 'pub-c-39594782-c4b0-4fb3-80fe-74e262353bf6';
+			var subscribe_key = 'sub-c-7ae61028-e9dd-11e3-92e7-02ee2ddab7fe';
+			channel = 'TopicDemo';
+			var username = window.location.search.substring(1).split('=')[1];
+			pubnub =PUBNUB.init({
+				publish_key : publish_key,
+				subscribe_key : subscribe_key,
+				uuid : username
+			});
+
+			pubnub.subscribe({
+				channel : channel,
+				callback : function(message) { 
+					$('#topicHistory')[0].innerHTML = message + '<br/>' + $('#topicHistory')[0].innerHTML; 
+				}
+			});
+
+			pubnub.bind('click', pubnub.$('sendButton'), function(e) { 
+				pubnub.publish({
+					channel : channel, 
+					message : $('#message').val()+' <br /> <b>From user : </b> '+pubnub.get_uuid()+' <b>Date/Time : </b>' + (new Date()).toString()
+				});
+				$('#message').val('');
+			});
+		})();
+	</script>
+
+	<script type="text/javascript">
+		function unsubscribe() { 
+			pubnub.unsubscribe({
+				channel : channel,
+				callback : function() {
+					window.location = 'Login.html';
+				}
+			});
+		}
+	</script>
+</body>
+</html>

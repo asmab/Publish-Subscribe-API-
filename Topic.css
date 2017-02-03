@@ -1,0 +1,22 @@
+.message {
+	width: 400px;
+	height: 500px;
+	position: absolute;
+	top: 80%;
+	left: 1%;
+}
+
+.sendButton {
+	position: absolute;
+	top: 80%;
+	left:31%;
+}
+
+.channelState {
+	height:200px; 
+	width:200px; 
+	background-color:#E6E6E6; 
+	position: absolute;
+	top: 15%;
+	left:30%;
+}

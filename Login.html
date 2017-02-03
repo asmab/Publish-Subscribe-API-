@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+	<title>Publish-Subscribe API</title>
+	<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="Topic.css">
+</head>
+<body>
+  <div align="center">
+	<h2> Advanced Topics in Programming Languages</h2>
+	You need to register  please enter your name <br /><br/>
+	<input id="userName" type="text" placeholder="Place enter your name here" class="userNameBar" />
+	<button id="joinButton" class="btn btn-primary joinButton" onclick="joinTopic()">Register</button> 
+  </div>
+	
+  <script type="text/javascript">
+		function joinTopic() { debugger;
+			var uuid = $('#userName').val();
+			window.location = 'Topic.html?uuid=' + uuid; 
+		}
+  </script>
+</body>
+</html>
